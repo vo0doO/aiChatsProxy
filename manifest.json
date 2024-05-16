@@ -1,0 +1,21 @@
+{
+    "version": "1.0.0",
+    "manifest_version": 3,
+    "name": "aiChatsProxy",
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "proxy",
+        "webRequest",
+        "webRequestAuthProvider",
+        "tabs",
+        "webNavigation",
+        "storage",
+        "scripting"
+    ],
+    "host_permissions": [
+        "http://*/*",
+        "https://*/*"
+    ]
+}
