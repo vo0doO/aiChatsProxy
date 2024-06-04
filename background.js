@@ -1,48 +1,23 @@
-var tasks = [
+var proxy = "http://tcnajmrr:kks63f4wl1oy@102.212.88.162:6159"
+
+var urls = [
     // gemini
-    {
-        url: "https://gemini.google.com/",
-        proxy: "http://tcnajmrr:kks63f4wl1oy@102.212.88.162:6159",
-    },
+    "https://gemini.google.com/",
     // chathpt
-    {
-        url: "https://chatgpt.com/",
-        proxy: "http://tcnajmrr:kks63f4wl1oy@102.212.88.162:6159",
-    },
-    {
-        url: "https://chat.openai.com",
-        proxy: "http://tcnajmrr:kks63f4wl1oy@102.212.88.162:6159",
-    },
-    {
-        url: "https://labs.openai.com",
-        proxy: "http://tcnajmrr:kks63f4wl1oy@102.212.88.162:6159",
-    },
-    {
-        url: "https://platform.openai.com",
-        proxy: "http://tcnajmrr:kks63f4wl1oy@102.212.88.162:6159",
-    },
-    {
-        url: "https://auth0.openai.com",
-        proxy: "http://tcnajmrr:kks63f4wl1oy@102.212.88.162:6159",
-    },
-    {
-        url: "https://auth.openai.com",
-        proxy: "http://tcnajmrr:kks63f4wl1oy@102.212.88.162:6159",
-    },
-    {
-        url: "https://api.openai.com",
-        proxy: "http://tcnajmrr:kks63f4wl1oy@102.212.88.162:6159",
-    }, {
-        url: "https://myip.ru",
-        proxy: "http://tcnajmrr:kks63f4wl1oy@102.212.88.162:6159",
-    }, {
-        url: "https://cdn.oaistatic.com",
-        proxy: "http://tcnajmrr:kks63f4wl1oy@102.212.88.162:6159",
-    }, {
-        url: "https://openaiapi-site.azureedge.net/public-assets/d/aed59725be/manifest.json",
-        proxy: "http://tcnajmrr:kks63f4wl1oy@102.212.88.162:6159",
-    }
+    "https://chatgpt.com/",
+    "https://ab.chatgpt.com/",
+    "https://chat.openai.com",
+    "https://labs.openai.com",
+    "https://platform.openai.com",
+    "https://auth0.openai.com",
+    "https://auth.openai.com",
+    "https://api.openai.com",
+    "https://myip.ru",
+    "https://cdn.oaistatic.com",
+    "https://openaiapi-site.azureedge.net/public-assets/d/aed59725be/manifest.json",
 ]
+
+var tasks = urls.map(url => { return { "url": url, "proxy": proxy } })
 
 function changeProxy(tasks) {
     script = "function FindProxyForURL(url, host) {\n"
