@@ -17,5 +17,9 @@
     "host_permissions": [
         "http://*/*",
         "https://*/*"
-    ]
+    ],
+    "action": {
+        "default_title": "Click Me",
+        "default_popup": "./popup.html"
+    }
 }

@@ -1,0 +1,10 @@
+{
+    "levelOfControl": "controlled_by_this_extension",
+    "value": {
+        "mode": "pac_script",
+        "pacScript": {
+            "data": "function FindProxyForURL(url, host) {\n  if (host == 'copilot.microsoft.com')\n    return 'PROXY 104.250.207.20:6418';\n  if (host == 'gemini.google.com')\n    return 'PROXY 104.250.207.20:6418';\n  if (host == 'chatgpt.com')\n    return 'PROXY 104.250.207.20:6418';\n  if (host == 'ab.chatgpt.com')\n    return 'PROXY 104.250.207.20:6418';\n  if (host == 'chat.openai.com')\n    return 'PROXY 104.250.207.20:6418';\n  if (host == 'labs.openai.com')\n    return 'PROXY 104.250.207.20:6418';\n  if (host == 'platform.openai.com')\n    return 'PROXY 104.250.207.20:6418';\n  if (host == 'auth0.openai.com')\n    return 'PROXY 104.250.207.20:6418';\n  if (host == 'auth.openai.com')\n    return 'PROXY 104.250.207.20:6418';\n  if (host == 'api.openai.com')\n    return 'PROXY 104.250.207.20:6418';\n  if (host == 'myip.ru')\n    return 'PROXY 104.250.207.20:6418';\n  if (host == 'cdn.oaistatic.com')\n    return 'PROXY 104.250.207.20:6418';\n  if (host == 'openaiapi-site.azureedge.net')\n    return 'PROXY 104.250.207.20:6418';\n  if (host == 'files.oaiusercontent.com')\n    return 'PROXY 104.250.207.20:6418';\n  if (host == 'swagger.io')\n    return 'PROXY 104.250.207.20:6418';\n  if (host == 'alex-ber.medium.com')\n    return 'PROXY 104.250.207.20:6418';\n  if (host == 'www.ebay.com')\n    return 'PROXY 104.250.207.20:6418';\n  if (host == 'rutracker.org')\n    return 'PROXY 104.250.207.20:6418';\n  if (host == '2ip.ru')\n    return 'PROXY 104.250.207.20:6418';\n  return 'DIRECT';\n}",
+            "mandatory": false
+        }
+    }
+}

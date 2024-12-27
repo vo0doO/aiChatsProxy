@@ -1,6 +1,8 @@
 var proxy = "";
 
 var urls = [
+  // copilot
+  "https://copilot.microsoft.com/",
   // gemini
   "https://gemini.google.com/",
   // chathpt
@@ -23,14 +25,16 @@ var urls = [
   // ebay
   "https://www.ebay.com/",
   // rutracker
-  "https://rutracker.org"
+  "https://rutracker.org",
+  // 2ip.ru
+  "https://2ip.ru"
 ];
 
 var tasks = urls.map((url) => {
   return { url: url, proxy: proxy };
 });
 
-function changeProxy(tasks) {
+function enableProxy(tasks) {
   script = "function FindProxyForURL(url, host) {\n";
 
   for (var task of tasks) {
@@ -69,8 +73,6 @@ function changeProxy(tasks) {
       console.log(config);
     }
   );
-
-  setOnAuthListener(tasks[0].proxy);
 }
 
 function setOnAuthListener() {
@@ -95,5 +97,80 @@ function setOnAuthListener() {
   );
 }
 
-setOnAuthListener();
-changeProxy(tasks);
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  switch (message.action) {
+    case "enable":
+      setOnAuthListener();
+      enableProxy(tasks);
+      break;
+    case "disable":
+      chrome.webRequest.onAuthRequired.removeListener();
+      disableProxy();
+      break;
+    case "redirectToProxyman":
+      chrome.webRequest.onAuthRequired.removeListener();
+      redirectToProxyman();
+      break;
+    default:
+      console.warn("Unknown message action:", message.action);
+  }
+});
+
+function disableProxy() {
+  try {
+    let config = {
+      mode: "direct",
+    };
+    setProxySettings(config);
+    return;
+  } catch (error) {
+    throw error;
+  }
+}
+
+function getProxySettings() {
+  return chrome.proxy.settings.get(
+    {
+      incognito: false,
+    },
+    (config) => {
+      console.log(`Получен конфиг ${JSON.stringify(config)}`)
+      return config;
+    }
+  );
+}
+
+function setProxySettings(config) {
+  return chrome.proxy.settings.set({
+    value: config,
+    scope: "regular"
+  }, () => {
+    console.log(`Настройки прокси успешно установлены на ${JSON.stringify(config)}`)
+  }
+  )
+}
+
+function redirectToProxyman() {
+  const proxymanHost = "192.168.0.164";
+  const proxymanPort = "9090";
+  try {
+    const script = `
+    function FindProxyForURL(url, host) {
+      return 'PROXY ${proxymanHost}:${proxymanPort}; DIRECT';
+    }
+  `;
+
+    const config = {
+      mode: "pac_script",
+      pacScript: {
+        data: script,
+      },
+    };
+
+    setProxySettings(config);
+    console.log(`Трафик принудительно перенаправлен на Proxyman (${proxymanHost}:${proxymanPort}).`);
+  }
+  catch (e) {
+    console.error(`ОШИБКА перенаправления на Proxyman ${e}.`)
+  }
+}
