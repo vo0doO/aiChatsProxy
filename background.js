@@ -97,25 +97,6 @@ function setOnAuthListener() {
   );
 }
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  switch (message.action) {
-    case "enable":
-      setOnAuthListener();
-      enableProxy(tasks);
-      break;
-    case "disable":
-      chrome.webRequest.onAuthRequired.removeListener();
-      disableProxy();
-      break;
-    case "redirectToProxyman":
-      chrome.webRequest.onAuthRequired.removeListener();
-      redirectToProxyman();
-      break;
-    default:
-      console.warn("Unknown message action:", message.action);
-  }
-});
-
 function disableProxy() {
   try {
     let config = {
@@ -174,3 +155,24 @@ function redirectToProxyman() {
     console.error(`ОШИБКА перенаправления на Proxyman ${e}.`)
   }
 }
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  switch (message.action) {
+    case "enable":
+      setOnAuthListener();
+      enableProxy(tasks);
+      break;
+    case "disable":
+      chrome.webRequest.onAuthRequired.removeListener();
+      disableProxy();
+      break;
+    case "redirectToProxyman":
+      chrome.webRequest.onAuthRequired.removeListener();
+      redirectToProxyman();
+      break;
+    default:
+      console.warn("Unknown message action:", message.action);
+  }
+});
+
+setOnAuthListener()
