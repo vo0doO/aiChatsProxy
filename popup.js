@@ -9,3 +9,7 @@ document.getElementById("disable").addEventListener('click', () => {
 document.getElementById("redirectToProxyman").addEventListener('click', () => {
     chrome.runtime.sendMessage({ action: "redirectToProxyman" })
 });
+
+document.getElementById("reload").addEventListener('click', () => {
+    chrome.runtime.sendMessage({ action: "reload" })
+});
