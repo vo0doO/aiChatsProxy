@@ -1,15 +1,23 @@
 var proxy = "";
 
 var urls = [
+  // redis
+  "https://redis.io/",
+  // coursera
+  "https://www.coursera.org/",
+  // notebookml
+  "https://notebooklm.google/",
   // copilot
   "https://copilot.microsoft.com/",
   // gemini
   "https://gemini.google.com/",
   // chathpt
+  "https://sora.chatgpt.com/",
   "https://chatgpt.com/",
   "https://ab.chatgpt.com/",
   "https://chat.openai.com",
   "https://labs.openai.com",
+  "https://videos.openai.com/",
   "https://platform.openai.com",
   "https://auth0.openai.com",
   "https://auth.openai.com",
@@ -22,12 +30,24 @@ var urls = [
   "https://swagger.io/",
   // medium
   "https://alex-ber.medium.com/",
+  "https://medium.com/",
+  "https://cdn-client.medium.com/",
+  "https://glyph.medium.com/",
+  "https://miro.medium.com/",
   // ebay
   "https://www.ebay.com/",
   // rutracker
   "https://rutracker.org",
   // 2ip.ru
-  "https://2ip.ru"
+  "https://2ip.ru",
+  // datacamp
+  "https://www.datacamp.com/",
+  // claude
+  "https://www.anthropic.com/",
+  "https://claude.ai/",
+  // mongo
+  "https://www.mongodb.com/",
+  "https://mongodb.com/"
 ];
 
 var tasks = urls.map((url) => {
@@ -169,6 +189,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     case "redirectToProxyman":
       chrome.webRequest.onAuthRequired.removeListener();
       redirectToProxyman();
+      break;
+    case "reload":
+      chrome.webRequest.onAuthRequired.removeListener();
+      chrome.runtime.reload();
       break;
     default:
       console.warn("Unknown message action:", message.action);
